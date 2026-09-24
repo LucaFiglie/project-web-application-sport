@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SportConnect – Accueil</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+<body>
+  <!-- Overlay de transition pour le changement de thème -->
+  <div class="theme-transition-overlay" id="theme-transition-overlay"></div>
+
+  <!-- Arrière-plan d'icônes de sport flottantes -->
+  <div class="ambient-sports-backdrop" id="ambient-sports-backdrop"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <img src="assets/logo.svg" alt="SportConnect Logo">
+      </div>
+      <span class="brand-text">SportConnect</span>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-section="feed">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Accueil</span>
+      </button>
+      <button class="nav-item" data-section="events">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        <span>Événements</span>
+      </button>
+      <button class="nav-item" data-section="chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <span>Messages</span>
+      </button>
+      <button class="nav-item" data-section="profile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span>Profil</span>
+      </button>
+    </nav>
+    <!-- Conteneur pour le logo du sport actif (en gros, en bas) -->
+    <div class="sidebar-active-sport-logo" id="sidebar-active-sport-logo">
+      <i class="fa fa-globe"></i>
+    </div>
+    <button class="logout-btn" id="logout">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+      <span>Déconnexion</span>
+    </button>
+  </aside>
+
+  <!-- Mobile header -->
+  <header class="mobile-header">
+    <button class="menu-toggle" id="menu-toggle">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <span class="mobile-title">SportConnect</span>
+    <div class="mobile-avatar">SC</div>
+  </header>
+
+  <!-- Main content -->
+  <main class="main-content">
+    <!-- Feed section -->
+    <section id="feed" class="content-section active">
+      <!-- Hero Section / Présentation du site -->
+      <div class="hero-section">
+        <h1 class="hero-title enter-1">SportConnect</h1>
+        <p class="hero-subtitle enter-2">Votre plateforme sociale pour organiser, rejoindre et partager des activités sportives en toute simplicité. Rencontrez des passionnés de sport près de chez vous et bougez ensemble !</p>
+        <div class="hero-actions enter-3">
+          <button class="btn-primary hero-btn" onclick="showSection('events')">Explorer les Événements</button>
+        </div>
+      </div>
+
+      <!-- Carrousel défilant des catégories -->
+      <div class="categories-marquee-container enter-3">
+        <h3 class="section-title">Nos Catégories</h3>
+        <div class="categories-marquee">
+          <div class="categories-marquee-track" id="categories-marquee-track">
+            <!-- Inséré dynamiquement par JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Événements tendance -->
+      <div class="trending-section enter-4">
+        <h3 class="section-title">🔥 Activités Tendance</h3>
+        <div class="feed-grid" id="feed-grid">
+          <!-- Populé dynamiquement par JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Events section -->
+    <section id="events" class="content-section">
+      <div class="events-layout">
+        <!-- Sidebar des catégories pour filtrer les événements -->
+        <aside class="events-categories-sidebar enter-1">
+          <h3>Sports</h3>
+          <div class="events-categories-list" id="events-categories-list">
+            <!-- Inséré dynamiquement par JS -->
+          </div>
+        </aside>
+
+        <!-- Contenu principal des événements -->
+        <div class="events-main-area">
+          <div class="page-header enter-1">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+              <h2 id="events-page-title">Événements sportifs</h2>
+              <button id="events-follow-sport-btn" class="btn-primary" style="display: none;"></button>
+            </div>
+            <p>Rejoins ou crée une séance près de chez toi</p>
+          </div>
+          <div class="events-toolbar enter-2">
+            <input type="text" id="event-search" placeholder="Rechercher un sport, une ville...">
+            <button class="btn-primary" id="btn-create-event">+ Créer un événement</button>
+          </div>
+          <div class="events-grid enter-3" id="events-grid">
+            <!-- Events inserted by JS -->
+          </div>
+          <!-- Filigrane de sport décoratif en bas à droite de la grille -->
+          <div class="events-grid-sport-watermark" id="events-grid-sport-watermark">
+            <i class="fa fa-globe"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories section -->
+    <section id="categories" class="content-section">
+      <div id="categories-main">
+        <div class="page-header enter-1">
+          <h2>Catégories</h2>
+          <p>Explore les activités par sport</p>
+        </div>
+        <div class="categories-grid enter-2" id="categories-grid">
+          <!-- Categories inserted by JS -->
+        </div>
+      </div>
+      <div id="category-detail" style="display: none;">
+        <div class="page-header">
+          <button class="btn-secondary" id="btn-back-categories" style="margin-bottom: 1rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Retour
+          </button>
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <h2 id="category-detail-title">Catégorie</h2>
+            <button id="btn-follow-category" class="btn-primary">Suivre</button>
+          </div>
+          <p>Activités disponibles pour cette catégorie</p>
+        </div>
+        <div class="events-grid" id="category-events-grid">
+          <!-- Events inserted by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Chat section -->
+    <section id="chat" class="content-section">
+      <div class="chat-layout">
+        <div class="chat-sidebar enter-1">
+          <h3>Conversations</h3>
+          <div class="chat-rooms" id="chat-rooms">
+            <div class="chat-loading">Chargement des conversations…</div>
+          </div>
+        </div>
+        <div class="chat-main enter-2">
+          <div class="chat-header">
+            <span class="chat-title" id="chat-title">Général</span>
+            <span class="chat-status">● En ligne</span>
+          </div>
+          <div id="chat-box" class="chat-box"></div>
+          <form id="send" class="chat-input-row">
+            <input type="text" id="new_message" class="new_message" placeholder="Écris ton message..." autocomplete="off">
+            <button type="submit" class="send-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+          </form>
+        </div>
+        <div class="chat-users-sidebar enter-3">
+          <h3>Utilisateurs en ligne</h3>
+          <ul id="users-online" class="users-online-list">
+            <!-- Populated dynamically -->
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Profile section -->
+    <section id="profile" class="content-section">
+      <div class="profile-wrapper">
+
+        <!-- Carte hero -->
+        <div class="profile-card">
+          <div class="profile-banner enter-1">
+            <div class="profile-banner-pattern"></div>
+          </div>
+          <div class="profile-body">
+            <div class="profile-top-row">
+              <div class="profile-avatar-wrap">
+                <div class="profile-avatar-large enter-2" id="profile-avatar">SC</div>
+                <span class="profile-avatar-status"></span>
+              </div>
+              <button class="btn-edit-profile" id="btn-edit-profile">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Modifier le profil
+              </button>
+            </div>
+            <div class="profile-info">
+              <h2 id="profile-username">Utilisateur</h2>
+              <span class="profile-role-badge" style="display: inline-flex; align-items: center; gap: 4px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                  <circle cx="12" cy="8" r="7"></circle>
+                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+                Membre SportConnect
+              </span>
+              <p class="profile-bio" id="profile-bio-display">Passionné de sport et de rencontres. Rejoins-moi pour une session !</p>
+            </div>
+            <div class="profile-stats">
+              <div class="stat">
+                <span class="stat-value" id="stat-events">–</span>
+                <span class="stat-label">Événements</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value" id="stat-sports">–</span>
+                <span class="stat-label">Sports suivis</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value" id="stat-upcoming">–</span>
+                <span class="stat-label">À venir</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Onglets profil -->
+        <div class="profile-tabs" role="tablist">
+          <button class="profile-tab active" data-ptab="overview" role="tab">Aperçu</button>
+          <button class="profile-tab" data-ptab="events" role="tab">Mes événements</button>
+          <button class="profile-tab" data-ptab="sports" role="tab">Mes sports</button>
+          <button class="profile-tab" data-ptab="settings" role="tab">Paramètres</button>
+        </div>
+
+        <!-- ── Onglet : Aperçu ── -->
+        <div class="profile-tab-content active" id="ptab-overview">
+          <div class="overview-cards-row">
+            <div class="overview-stat-card">
+              <div class="osc-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+              </div>
+              <span class="osc-value" id="ov-events">0</span>
+              <span class="osc-label">Événements rejoints</span>
+            </div>
+            <div class="overview-stat-card">
+              <div class="osc-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path>
+                </svg>
+              </div>
+              <span class="osc-value" id="ov-upcoming">0</span>
+              <span class="osc-label">Prochaines sessions</span>
+            </div>
+            <div class="overview-stat-card">
+              <div class="osc-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="6"></circle>
+                  <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+                </svg>
+              </div>
+              <span class="osc-value" id="ov-sports">0</span>
+              <span class="osc-label">Sports pratiqués</span>
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <div class="profile-section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Prochains événements
+            </div>
+            <div id="upcoming-events-list"><p class="profile-empty">Chargement…</p></div>
+          </div>
+
+          <div class="profile-section">
+            <div class="profile-section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+              Sports suivis
+            </div>
+            <div class="profile-sports-grid" id="overview-sports-list"><p class="profile-empty">Chargement…</p></div>
+          </div>
+        </div>
+
+        <!-- ── Onglet : Événements ── -->
+        <div class="profile-tab-content" id="ptab-events">
+          <div class="profile-section">
+            <div class="profile-section-title" style="justify-content:space-between;flex-wrap:wrap;gap:.5rem">
+              <span style="display:flex;align-items:center;gap:.5rem">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Mes événements
+              </span>
+              <div class="events-filter-tabs">
+                <button class="filter-tab active" data-efilter="upcoming" id="efilter-upcoming">À venir</button>
+                <button class="filter-tab" data-efilter="past" id="efilter-past">Passés</button>
+                <button class="filter-tab" data-efilter="all" id="efilter-all">Tous</button>
+              </div>
+            </div>
+            <div id="my-events-list"><p class="profile-empty">Chargement…</p></div>
+          </div>
+        </div>
+
+        <!-- ── Onglet : Sports ── -->
+        <div class="profile-tab-content" id="ptab-sports">
+          <div class="profile-section">
+            <div class="profile-section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+              Mes sports &amp; catégories
+            </div>
+            <div class="profile-sports-grid large" id="my-sports-list"><p class="profile-empty">Chargement…</p></div>
+          </div>
+          <div class="profile-section">
+            <div class="profile-section-title" style="display: inline-flex; align-items: center; gap: 6px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+              </svg>
+              Sports par activité
+            </div>
+            <div class="sport-activity-list" id="sport-activity-list"><p class="profile-empty">Chargement…</p></div>
+          </div>
+        </div>
+
+        <!-- ── Onglet : Paramètres ── -->
+        <div class="profile-tab-content" id="ptab-settings">
+          <div class="profile-section">
+            <div class="profile-section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              Informations du compte
+            </div>
+            <div class="settings-list">
+              <div class="setting-row">
+                <div class="setting-row-info">
+                  <span class="setting-row-label">Nom d'utilisateur</span>
+                  <span class="setting-row-value" id="setting-username">–</span>
+                </div>
+                <span class="setting-locked-badge">🔒 Non modifiable</span>
+              </div>
+              <div class="setting-row">
+                <div class="setting-row-info">
+                  <span class="setting-row-label">Biographie</span>
+                  <span class="setting-row-value" id="setting-bio">–</span>
+                </div>
+                <button class="setting-edit-btn" id="btn-settings-edit-bio">Modifier</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <div class="profile-section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Sécurité
+            </div>
+            <form class="change-password-form" id="change-password-form">
+              <div class="form-group">
+                <label for="cp-current">Mot de passe actuel</label>
+                <div class="input-pw-wrap">
+                  <input type="password" id="cp-current" placeholder="••••••••" autocomplete="current-password">
+                  <button type="button" class="toggle-pw" data-target="cp-current">👁</button>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="cp-new">Nouveau mot de passe</label>
+                  <div class="input-pw-wrap">
+                    <input type="password" id="cp-new" placeholder="••••••••" autocomplete="new-password">
+                    <button type="button" class="toggle-pw" data-target="cp-new">👁</button>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="cp-confirm">Confirmer</label>
+                  <div class="input-pw-wrap">
+                    <input type="password" id="cp-confirm" placeholder="••••••••" autocomplete="new-password">
+                    <button type="button" class="toggle-pw" data-target="cp-confirm">👁</button>
+                  </div>
+                </div>
+              </div>
+              <div class="pw-strength-bar" id="pw-strength-bar"><div id="pw-strength-fill"></div></div>
+              <p class="pw-strength-label" id="pw-strength-label"></p>
+              <div id="cp-msg" class="cp-message"></div>
+              <button type="submit" class="btn-primary" id="btn-change-pw">Changer mon mot de passe</button>
+            </form>
+          </div>
+
+          <div class="profile-section danger-zone">
+            <div class="profile-section-title danger-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Zone dangereuse
+            </div>
+            <p class="danger-desc">Ces actions sont irréversibles. Proceed with caution.</p>
+            <div class="danger-actions">
+              <button class="btn-danger" id="btn-logout-profile">Se déconnecter</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Modal : Modifier le profil ── -->
+      <div class="modal-overlay" id="edit-profile-modal">
+        <div class="modal">
+          <div class="modal-header">
+            <h3>Modifier le profil</h3>
+            <button class="modal-close" id="edit-profile-close">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="modal-avatar-preview">
+              <div class="profile-avatar-large" id="modal-avatar-preview">SC</div>
+              <span class="modal-avatar-hint">Avatar généré depuis vos initiales</span>
+            </div>
+            <div class="form-group">
+              <label>Nom d'utilisateur</label>
+              <input type="text" id="edit-username-display" disabled style="background:var(--bg);color:var(--text-muted);cursor:not-allowed">
+            </div>
+            <div class="form-group">
+              <label for="edit-bio-input">Biographie <span style="color:var(--text-muted);font-weight:400">(max 160 car.)</span></label>
+              <textarea id="edit-bio-input" rows="3" maxlength="160" placeholder="Parle de toi et de tes sports préférés…"></textarea>
+              <span class="bio-char-count"><span id="bio-char-current">0</span>/160</span>
+            </div>
+            <div class="modal-footer">
+              <button class="btn-secondary" id="edit-profile-cancel">Annuler</button>
+              <button class="btn-primary" id="btn-save-profile">Enregistrer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="chat/chat-client.js"></script>
+
+  <!-- Create Event Modal -->
+  <div class="modal-overlay" id="create-event-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Créer un événement</h3>
+        <button class="modal-close" id="modal-close">&times;</button>
+      </div>
+      <form id="create-event-form" class="modal-body">
+        <div class="form-group">
+          <label for="ev-title">Titre</label>
+          <input type="text" id="ev-title" placeholder="Ex: Match de foot 5v5" required>
+        </div>
+        <div class="form-group">
+          <label for="ev-sport-select">Sport</label>
+          <select id="ev-sport-select" required>
+            <option value="" disabled selected>Choisir un sport...</option>
+            <option value="Football">Football</option>
+            <option value="Basket">Basket</option>
+            <option value="Running">Running</option>
+            <option value="Tennis">Tennis</option>
+            <option value="Musculation">Musculation</option>
+            <option value="Yoga">Yoga</option>
+            <option value="Escalade">Escalade</option>
+            <option value="Cyclisme">Cyclisme</option>
+            <option value="Natation">Natation</option>
+            <option value="Badminton">Badminton</option>
+            <option value="autre">Autre (saisir manuellement)...</option>
+          </select>
+        </div>
+        <div class="form-group" id="ev-sport-custom-container" style="display: none; margin-top: 0.5rem;">
+          <label for="ev-sport-custom">Nom du sport personnalisé</label>
+          <input type="text" id="ev-sport-custom" placeholder="Ex: Canoë-kayak">
+        </div>
+        <div class="form-group">
+          <label for="ev-location">Lieu</label>
+          <input type="text" id="ev-location" placeholder="Ex: Stade Richter, Montpellier" required>
+        </div>
+        
+        <div id="create-event-error" style="display: none; background: #fef2f2; color: #dc2626; padding: 0.75rem; border-radius: 8px; border: 1px solid #fecaca; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          <span id="create-event-error-text">Message d'erreur</span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ev-date">Date</label>
+            <input type="date" id="ev-date" required>
+          </div>
+          <div class="form-group">
+            <label for="ev-time">Heure</label>
+            <input type="time" id="ev-time" required>
+          </div>
+          <div class="form-group">
+            <label for="ev-capacity">Capacité</label>
+            <input type="number" id="ev-capacity" min="2" max="500" value="10" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" id="modal-cancel">Annuler</button>
+          <button type="submit" class="btn-primary">Créer l'événement</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── Modal : Voir le profil ── -->
+  <div class="modal-overlay" id="view-profile-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Profil de l'utilisateur</h3>
+        <button class="modal-close" id="view-profile-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-avatar-preview" style="margin-bottom: 1.5rem;">
+          <div class="profile-avatar-large" id="view-profile-avatar">SC</div>
+          <h3 id="view-profile-username" style="margin-top: 0.5rem; margin-bottom: 0.25rem;">Utilisateur</h3>
+          <span class="profile-role-badge" id="view-profile-role" style="display: inline-flex; align-items: center; gap: 4px; font-size: 0.8rem; padding: 0.25rem 0.75rem;">
+            Membre
+          </span>
+        </div>
+        <div class="form-group">
+          <label style="font-weight: 600;">Biographie</label>
+          <div id="view-profile-bio" style="background: var(--bg); padding: 1rem; border-radius: 8px; font-size: 0.95rem; line-height: 1.5; color: var(--text); border: 1px solid var(--border); min-height: 50px; white-space: pre-wrap;">Aucune biographie.</div>
+        </div>
+        
+        <div class="profile-stats" style="margin-top: 1.5rem; justify-content: space-around; background: var(--bg); padding: 1rem; border-radius: 8px; border: 1px solid var(--border);">
+          <div class="stat">
+            <span class="stat-value" id="view-profile-stat-events">0</span>
+            <span class="stat-label" style="font-size: 0.75rem;">Événements</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value" id="view-profile-stat-sports">0</span>
+            <span class="stat-label" style="font-size: 0.75rem;">Sports suivis</span>
+          </div>
+        </div>
+        <div class="modal-footer" style="margin-top: 1.5rem;">
+          <button class="btn-primary" id="view-profile-close-btn" style="width: 100%;">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="events/events.js"></script>
+  <script src="navigation/navigation.js"></script>
+  <script src="categories/categories.js"></script>
+  <script src="chat/chat-dashboard.js"></script>
+  <script src="profile/profile.js"></script>
+  <script src="auth/logout.js"></script>
+</body>
+</html>

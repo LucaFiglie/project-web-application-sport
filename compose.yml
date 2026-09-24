@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+        test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}"]
+        interval: 10s
+        timeout: 5s
+        retries: 5
+  backend:
+    build: ./backend
+    ports:
+      - "8081:8081"
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - JWT_SECRET=${JWT_SECRET}
+      - REFRESH_SECRET=${REFRESH_SECRET}
+      - PEPPER=${PEPPER}
+      - FRONTEND_ORIGIN=${FRONTEND_ORIGIN:-http://localhost:8080}
+      - ADMIN_USERNAME=${ADMIN_USERNAME}
+    healthcheck:
+            test: ["CMD", "deno", "eval", "Deno.connect({port: 8081})"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+    depends_on:
+      db:
+          condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      backend:
+          condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
